@@ -67,7 +67,7 @@ func loadServerCtx() *ServerCtx {
 		apps := strings.Split(allApps, ",")
 		log.WithField("apps", apps).Info("ALLOWED_APPS loaded.")
 		for _, app := range apps {
-			name := strings.ToUpper(app)
+			name := strings.Replace(strings.ToUpper(app), "-", "_", -1)
 			s.AllowedApps = append(s.AllowedApps, app)
 			s.AppPasswd[app] = os.Getenv(name + "_PASSWORD")
 			if s.AppPasswd[app] == "" {
