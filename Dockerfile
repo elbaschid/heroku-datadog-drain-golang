@@ -11,9 +11,9 @@ RUN cd /tmp && \
     rm /tmp/glide-${GLIDE_VERSION}-linux-amd64.tar.gz && rm -rf /tmp/linux-amd64/
 
 COPY . /go/src/github.com/apiaryio/heroku-datadog-drain-go
+WORKDIR /go/src/github.com/apiaryio/heroku-datadog-drain-go
 
-RUN cd /go/src/github.com/apiaryio/heroku-datadog-drain-go && \
-    glide install && \
+RUN glide install && \
     go install
 
-ENTRYPOINT ["/go/bin/heroku-datadog-drain-go"]
+CMD ["/go/bin/heroku-datadog-drain-go"]
