@@ -1,0 +1,34 @@
+loadbalancer:
+  image: dockercloud/haproxy
+  links:
+    - heroku-datadog-drain
+  ports:
+    - "80:80"
+  roles:
+    - global
+  autoredeploy: true
+
+heroku-datadog-drain:
+  image: elbaschid/heroku-drain-datadog
+  links:
+    - heroku-datadog-statsd
+  environment:
+    ALLOWED_APPS: example-app
+    STATSD_URL: 'heroku-datadog-statsd:8125'
+    EXAMPLE_APP_PASSWORD: my-secret-password
+    EXAMPLE_APP_PREFIX: example
+    EXAMPLE_APP_TAGS: example,production
+  ports:
+    - '8080'
+  target_num_containers: 2
+  autoredeploy: true
+
+heroku-datadog-statsd:
+  image: datadog/docker-dd-agent
+  environment:
+    DOGSTATSD_ONLY: true
+    API_KEY: datadog-api-key
+  ports:
+    - '8125:8125/udp'
+  target_num_containers: 1
+  autoredeploy: true

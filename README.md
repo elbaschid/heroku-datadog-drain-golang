@@ -2,6 +2,8 @@
 
 # Heroku Datadog Drain
 
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/elbaschid/heroku-datadog-drain-golang)
+
 Golang version of [NodeJS](https://github.com/ozinc/heroku-datadog-drain)
 
 Funnel metrics from multiple Heroku apps into DataDog using statsd.
